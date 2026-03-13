@@ -37,6 +37,27 @@ app.get ('/todos/completed', async (req, res, next ) =>  {
     }
 })
 
+
+
+// GET TODOS WITH QUERY PARAMETER
+
+app.get ('/todos/completed=false', async (req,res,next) => {
+
+    try {
+        
+        const todo = await Todo .findOne (req.params.completed);
+
+          if (!todo) return res.status(404).json ({error : "Not found"});
+    res.status(200).json(todo);
+
+    } 
+    
+    catch (error) {
+        next (error);
+    }
+
+})
+
 // POST New
 app.post('/todos', validateTodo, async (req,res, next) => {
 
